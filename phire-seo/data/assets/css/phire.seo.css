@@ -1,0 +1,25 @@
+/**
+ * SEO Module Style Sheet for Phire CMS 2
+ */
+
+td.seo-col {
+    padding-right: 15px;
+    width: 20%;
+    text-align: right;
+}
+
+#seo_ga {
+    margin: 10px auto 10px auto;
+    width: 98%;
+    display: block;
+    font-size: 1.0em;
+}
+
+input[type=text].meta-name-field {
+    margin: 5px 0 5px 10px;
+}
+
+input[type=text].meta-content-field {
+    margin: 5px 0 5px 10px;
+    width: calc(100% - 225px);
+}
