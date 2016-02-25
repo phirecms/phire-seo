@@ -2,6 +2,8 @@
 
 return [
     'seo' => [
-        'index'
+        'index',
+        'analysis',
+        'json'
     ]
 ];

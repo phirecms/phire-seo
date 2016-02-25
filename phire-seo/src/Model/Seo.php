@@ -42,12 +42,33 @@ class Seo extends AbstractModel
             $cfg = unserialize($config->value);
         } else {
             $cfg = [
-                'ga'   => '',
-                'meta' => []
+                'tracking' => '',
+                'robots'   => 'User-agent: *' . PHP_EOL .
+                    'Disallow: ' . BASE_PATH . APP_URI . PHP_EOL .
+                    'Disallow: ' . BASE_PATH . APP_PATH . PHP_EOL,
+                'meta'   => []
             ];
         }
 
         return $cfg;
+    }
+
+    /**
+     * Get seo analysis
+     *
+     * @return array
+     */
+    public function getAnalysis()
+    {
+        $analysis = Table\Config::findById('seo_analysis');
+
+        if (isset($analysis->value) && !empty($analysis->value) && ($analysis->value != '')) {
+            $a = unserialize($analysis->value);
+        } else {
+            $a = [];
+        }
+
+        return $a;
     }
 
     /**
@@ -56,11 +77,12 @@ class Seo extends AbstractModel
      * @param  array $post
      * @return void
      */
-    public function save(array $post)
+    public function saveConfig(array $post)
     {
         $cfg = [
-            'ga'   => (!empty($post['seo_ga'])) ? html_entity_decode($post['seo_ga'], ENT_QUOTES, 'UTF-8') : '',
-            'meta' => []
+            'tracking' => (!empty($post['seo_tracking'])) ? html_entity_decode($post['seo_tracking'], ENT_QUOTES, 'UTF-8') : '',
+            'robots'   => (!empty($post['seo_robots'])) ? html_entity_decode($post['seo_robots'], ENT_QUOTES, 'UTF-8') : '',
+            'meta'     => []
         ];
 
         foreach ($post as $key => $value) {
@@ -80,6 +102,16 @@ class Seo extends AbstractModel
         $config->save();
     }
 
+    /**
+     * Process and save seo config
+     *
+     * @param  array $post
+     * @return void
+     */
+    public function saveAnalysis(array $post)
+    {
+
+    }
 
     /**
      * Build social nav
@@ -111,6 +143,25 @@ class Seo extends AbstractModel
                     ]);
                     $metas .= '    ' . (string)$m;
                 }
+            }
+        }
+
+        if (null === $metas) {
+            if ((null !== $description) && ($description != '')) {
+                $m = new Child('meta');
+                $m->setAttributes([
+                    'name'    => 'description',
+                    'content' => htmlentities($description, ENT_QUOTES, 'UTF-8')
+                ]);
+                $metas .= '    ' . (string)$m;
+            }
+            if ((null !== $keywords) && ($keywords != '')) {
+                $m = new Child('meta');
+                $m->setAttributes([
+                    'name'    => 'keywords',
+                    'content' => htmlentities($keywords, ENT_QUOTES, 'UTF-8')
+                ]);
+                $metas .= '    ' . (string)$m;
             }
         }
 

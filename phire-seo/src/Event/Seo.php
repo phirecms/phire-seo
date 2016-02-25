@@ -120,8 +120,8 @@ class Seo
                 $body = str_replace('[{seo_meta_tags}]', $seo->buildMetaTags($controller->view()->description, $controller->view()->keywords), $body);
             }
 
-            if (!empty($seo->ga)) {
-                $body = str_replace('</head>', $seo->ga . PHP_EOL . PHP_EOL . '</head>', $body);
+            if (!empty($seo->tracking)) {
+                $body = str_replace('</head>', $seo->tracking . PHP_EOL . PHP_EOL . '</head>', $body);
             }
 
             $controller->response()->setBody($body);
