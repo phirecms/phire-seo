@@ -23,3 +23,51 @@ input[type=text].meta-content-field {
     margin: 5px 0 5px 10px;
     width: calc(100% - 225px);
 }
+
+.good-seo {
+    margin: 15px auto 25px auto;
+    padding: 12px 20px 12px 40px;
+    width: calc(95% - 60px);
+    display: block;
+    font-weight: normal;
+    text-align: left;
+    color: #315900;
+    background-color: #dbf2bf;
+    border-radius: 4px;
+    box-shadow: 0 0 5px 2px #b8c9a1;
+    background-image: url(../img/check.png);
+    background-position: 10px center;
+    background-repeat: no-repeat;
+}
+
+.bad-seo {
+    margin: 15px auto 25px auto;
+    padding: 12px 20px 12px 40px;
+    width: calc(95% - 60px);
+    display: block;
+    font-weight: normal;
+    text-align: left;
+    color: #8e0202;
+    background-color: #e8d0d0;
+    border-radius: 4px;
+    box-shadow: 0 0 5px 2px #bfa4a4;
+    background-image: url(../img/x-red.png);
+    background-position: 10px center;
+    background-repeat: no-repeat;
+}
+
+.seo-issues {
+    margin: 0 auto;
+    padding: 12px 20px 12px 40px;
+    width: calc(95% - 60px);
+}
+.seo-issues > h5 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.1em;
+}
+.seo-issues > ul {
+    margin-top: 0;
+    padding-top: 0;
+}
+

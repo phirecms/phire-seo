@@ -1,16 +1,61 @@
 <?php include $phireHeader; ?>
     <h1 class="seo-header"><?=$title; ?></h1>
-    <nav id="sub-nav">
-        <nav><a href="<?=$phireUri; ?>/seo">Back</a></nav>
-    </nav>
-    <form id="seo-form" action="<?=$phireUri . '/seo/analysis'; ?>" method="post">
+        <nav id="sub-nav">
+            <nav><a href="<?=$phireUri; ?>/seo">Back</a></nav>
+            <nav><a href="<?=$phireUri; ?>/seo/analysis?run=1" onclick="jax('#loading').show();">Run</a></nav>
+        </nav>
         <table class="data-table" cellpadding="0" cellspacing="0" border="0">
             <tr>
                 <th>&nbsp;</th>
             </tr>
 <?php if (count($seoAnalysis) > 0): ?>
             <tr>
-                <td>Got some!</td>
+                <td>
+<?php if ($seoAnalysis['tracking']): ?>
+                    <div class="good-seo">Tracking &amp; analytics detected.</div>
+<?php else: ?>
+                    <div class="bad-seo">Unable to detect tracking &amp; analytics.</div>
+<?php endif; ?>
+<?php if ($seoAnalysis['sitemap']): ?>
+                    <div class="good-seo">Sitemap file detected.</div>
+<?php else: ?>
+                    <div class="bad-seo">Unable to detect sitemap file. It is recommended that you use the <em><strong>phire-sitemap</strong></em> module to generate one, or generate a custom one.</div>
+<?php endif; ?>
+<?php if ($seoAnalysis['robots']): ?>
+                    <div class="good-seo">Robots file detected.</div>
+<?php else: ?>
+                    <div class="bad-seo">Unable to detect robots file. It is recommended that you fill in the robots file content under this plugin, or create a custom one.</div>
+<?php endif; ?>
+<?php if ($seoAnalysis['caching']): ?>
+                    <div class="good-seo">Site caching detected.</div>
+<?php else: ?>
+                    <div class="bad-seo">Unable to detect site caching. It is recommended that you use the <em><strong>phire-cache</strong></em> module.</div>
+<?php endif; ?>
+<?php if ($seoAnalysis['site-verify']): ?>
+                    <div class="good-seo">Google site verification detected.</div>
+<?php else: ?>
+                    <div class="bad-seo">Unable to detect Google site verification. It is recommended that you site up Google site verification for improved use and performance of Google's SEO tools.</div>
+<?php endif; ?>
+<?php
+    $goodCount  = count($seoAnalysis['content']['good']);
+    $badCount   = count($seoAnalysis['content']['bad']);
+    $totalCount = $goodCount + $badCount;
+?>
+                    <div class="good-seo"><?=$goodCount; ?>/<?=$totalCount; ?> pages passed.</div>
+<?php if ($badCount > 0): ?>
+                    <div class="bad-seo"><?=$badCount; ?>/<?=$totalCount; ?> pages have issues.</div>
+                    <div class="seo-issues">
+<?php foreach ($seoAnalysis['content']['bad'] as $id => $bad): ?>
+                        <h5><a href="<?=BASE_PATH . APP_URI . '/content/edit/' . $bad['type_id'] . '/' . $id; ?>" target="_blank"><?=$bad['title']; ?></a></h5>
+                        <ul>
+<?php foreach ($bad['issues'] as $issue): ?>
+                            <li><?=$issue; ?></li>
+<?php endforeach; ?>
+                        </ul>
+<?php endforeach; ?>
+                    </div>
+<?php endif; ?>
+                </td>
             </tr>
 <?php else: ?>
             <tr>
@@ -18,6 +63,4 @@
             </tr>
 <?php endif; ?>
         </table>
-        <div id="form-footer"><input type="submit" name="submit" class="process-btn" value="Process" /></div>
-    </form>
 <?php include $phireFooter; ?>

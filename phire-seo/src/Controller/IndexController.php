@@ -40,8 +40,8 @@ class IndexController extends AbstractController
         $this->prepareView('seo/analysis.phtml');
         $seo = new Model\Seo();
 
-        if ($this->request->isPost()) {
-            $seo->saveAnalysis($this->request->getPost());
+        if ($this->request->getQuery('run') == '1') {
+            $seo->saveAnalysis();
             $this->sess->setRequestValue('saved', true);
             $this->redirect(BASE_PATH . APP_URI . '/seo/analysis');
         } else {
