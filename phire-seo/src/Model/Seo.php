@@ -295,7 +295,7 @@ class Seo extends AbstractModel
                         }
                     }
                     if ($meta['name'] == 'keywords') {
-                        $hasDesc = true;
+                        $hasKeys = true;
                         if ((null !== $keywords) && ($keywords != '')) {
                             $content = $keywords;
                         }
