@@ -113,7 +113,7 @@ class Seo
      */
     public static function parse(AbstractController $controller, Application $application)
     {
-        if (($controller->hasView()) && ($controller instanceof \Phire\Content\Controller\IndexController)) {
+        if (($controller->hasView()) && (($controller instanceof \Phire\Content\Controller\IndexController) || ($controller instanceof \Phire\Categories\Controller\IndexController))) {
             $seo  = new Model\Seo();
             $body = $controller->response()->getBody();
             if (strpos($body, '[{seo_meta_tags}]') !== false) {
