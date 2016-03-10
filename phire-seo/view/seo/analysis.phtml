@@ -41,7 +41,7 @@
     $badCount   = count($seoAnalysis['content']['bad']);
     $totalCount = $goodCount + $badCount;
 ?>
-                    <div class="good-seo"><?=$goodCount; ?>/<?=$totalCount; ?> pages passed.</div>
+                    <div class="<?=($goodCount > 0) ? 'good' : 'bad'; ?>-seo"><?=$goodCount; ?>/<?=$totalCount; ?> pages passed.</div>
 <?php if ($badCount > 0): ?>
                     <div class="bad-seo"><?=$badCount; ?>/<?=$totalCount; ?> pages have issues.</div>
                     <div class="seo-issues">

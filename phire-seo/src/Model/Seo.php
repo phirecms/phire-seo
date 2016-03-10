@@ -258,7 +258,7 @@ class Seo extends AbstractModel
 
                 if (strlen($metaKeys) == 0) {
                     $analysis['content']['bad'][$c->id]['issues'][] = 'No keywords meta tag';
-                } else if (strlen($metaKeys) > 160) {
+                } else if (strlen($metaKeys) > 255) {
                     $analysis['content']['bad'][$c->id]['issues'][] = 'Keywords meta tag is too long';
                 }
             }
