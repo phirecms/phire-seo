@@ -99,7 +99,7 @@ class Seo
      */
     public static function init(AbstractController $controller, Application $application)
     {
-        if ((!$_POST) && ($controller->hasView()) && ($controller instanceof \Phire\Content\Controller\IndexController)) {
+        if ((!$_POST) && ($controller->hasView()) && (($controller instanceof \Phire\Content\Controller\IndexController) || ($controller instanceof \Phire\Categories\Controller\IndexController))) {
             $controller->view()->phire->seo = new Model\Seo();
         }
     }
