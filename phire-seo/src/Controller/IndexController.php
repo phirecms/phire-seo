@@ -41,7 +41,7 @@ class IndexController extends AbstractController
         $seo = new Model\Seo();
 
         if ($this->request->getQuery('run') == '1') {
-            $seo->saveAnalysis();
+            $seo->saveAnalysis($this->application->module('phire-seo')['exclude']);
             $this->sess->setRequestValue('saved', true);
             $this->redirect(BASE_PATH . APP_URI . '/seo/analysis');
         } else {

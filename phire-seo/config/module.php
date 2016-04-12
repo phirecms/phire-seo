@@ -36,6 +36,7 @@ return [
                 'priority' => 1000
             ]
         ],
+        'exclude' => [],
         'install' => function() {
             $config = new \Phire\Table\Config([
                 'setting' => 'seo_config',

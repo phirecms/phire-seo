@@ -107,9 +107,10 @@ class Seo extends AbstractModel
     /**
      * Process and save seo config
      *
+     * @param  array $exclude
      * @return void
      */
-    public function saveAnalysis()
+    public function saveAnalysis(array $exclude = [])
     {
         $config = Table\Config::findById('seo_config');
         $cfg    = (isset($config->value) && !empty($config->value) && ($config->value != '')) ?
@@ -207,59 +208,61 @@ class Seo extends AbstractModel
 
         $content = \Phire\Content\Table\Content::findAll();
         foreach ($content->rows() as $c) {
-            $seoTitle = '';
-            $metaDesc = '';
-            $metaKeys = '';
-            if ($fields['seo_title'] != '') {
-                $seoTitleField = \Phire\Fields\Table\FieldValues::findById([$fields['seo_title'], $c->id, "Phire\\Content\\Model\\Content"]);
-                if (isset($seoTitleField->field_id)) {
-                    $seoTitle = json_decode($seoTitleField->value);
+            if (!in_array($c->type_id, $exclude)) {
+                $seoTitle = '';
+                $metaDesc = '';
+                $metaKeys = '';
+                if ($fields['seo_title'] != '') {
+                    $seoTitleField = \Phire\Fields\Table\FieldValues::findById([$fields['seo_title'], $c->id, "Phire\\Content\\Model\\Content"]);
+                    if (isset($seoTitleField->field_id)) {
+                        $seoTitle = json_decode($seoTitleField->value);
+                    }
                 }
-            }
-            if ($fields['description'] != '') {
-                $descriptionField = \Phire\Fields\Table\FieldValues::findById([$fields['description'], $c->id, "Phire\\Content\\Model\\Content"]);
-                if (isset($descriptionField->field_id)) {
-                    $metaDesc = json_decode($descriptionField->value);
+                if ($fields['description'] != '') {
+                    $descriptionField = \Phire\Fields\Table\FieldValues::findById([$fields['description'], $c->id, "Phire\\Content\\Model\\Content"]);
+                    if (isset($descriptionField->field_id)) {
+                        $metaDesc = json_decode($descriptionField->value);
+                    }
                 }
-            }
-            if ($fields['keywords'] != '') {
-                $keywordsField = \Phire\Fields\Table\FieldValues::findById([$fields['keywords'], $c->id, "Phire\\Content\\Model\\Content"]);
-                if (isset($keywordsField->field_id)) {
-                    $metaKeys = json_decode($keywordsField->value);
-                }
-            }
-
-            if ((strlen($seoTitle) > 0) && (strlen($seoTitle) <= 60) &&
-                (strlen($metaDesc) > 0) && (strlen($metaDesc) <= 160) &&
-                (strlen($metaKeys) > 0) && (strlen($metaKeys) <= 255)) {
-                $analysis['content']['good'][$c->id] = [
-                    'title' => $c->title,
-                    'uri'   => $c->uri
-                ];
-            } else {
-                $analysis['content']['bad'][$c->id] = [
-                    'title'   => $c->title,
-                    'type_id' => $c->type_id,
-                    'uri'     => $c->uri,
-                    'issues'  => []
-                ];
-
-                if (strlen($seoTitle) == 0) {
-                    $analysis['content']['bad'][$c->id]['issues'][] = 'No SEO Title';
-                } else if (strlen($seoTitle) > 60) {
-                    $analysis['content']['bad'][$c->id]['issues'][] = 'SEO Title is too long';
+                if ($fields['keywords'] != '') {
+                    $keywordsField = \Phire\Fields\Table\FieldValues::findById([$fields['keywords'], $c->id, "Phire\\Content\\Model\\Content"]);
+                    if (isset($keywordsField->field_id)) {
+                        $metaKeys = json_decode($keywordsField->value);
+                    }
                 }
 
-                if (strlen($metaDesc) == 0) {
-                    $analysis['content']['bad'][$c->id]['issues'][] = 'No description meta tag';
-                } else if (strlen($metaDesc) > 160) {
-                    $analysis['content']['bad'][$c->id]['issues'][] = 'Description meta tag is too long';
-                }
+                if ((strlen($seoTitle) > 0) && (strlen($seoTitle) <= 60) &&
+                    (strlen($metaDesc) > 0) && (strlen($metaDesc) <= 160) &&
+                    (strlen($metaKeys) > 0) && (strlen($metaKeys) <= 255)) {
+                    $analysis['content']['good'][$c->id] = [
+                        'title' => $c->title,
+                        'uri'   => $c->uri
+                    ];
+                } else {
+                    $analysis['content']['bad'][$c->id] = [
+                        'title'   => $c->title,
+                        'type_id' => $c->type_id,
+                        'uri'     => $c->uri,
+                        'issues'  => []
+                    ];
 
-                if (strlen($metaKeys) == 0) {
-                    $analysis['content']['bad'][$c->id]['issues'][] = 'No keywords meta tag';
-                } else if (strlen($metaKeys) > 255) {
-                    $analysis['content']['bad'][$c->id]['issues'][] = 'Keywords meta tag is too long';
+                    if (strlen($seoTitle) == 0) {
+                        $analysis['content']['bad'][$c->id]['issues'][] = 'No SEO Title';
+                    } else if (strlen($seoTitle) > 60) {
+                        $analysis['content']['bad'][$c->id]['issues'][] = 'SEO Title is too long';
+                    }
+
+                    if (strlen($metaDesc) == 0) {
+                        $analysis['content']['bad'][$c->id]['issues'][] = 'No description meta tag';
+                    } else if (strlen($metaDesc) > 160) {
+                        $analysis['content']['bad'][$c->id]['issues'][] = 'Description meta tag is too long';
+                    }
+
+                    if (strlen($metaKeys) == 0) {
+                        $analysis['content']['bad'][$c->id]['issues'][] = 'No keywords meta tag';
+                    } else if (strlen($metaKeys) > 255) {
+                        $analysis['content']['bad'][$c->id]['issues'][] = 'Keywords meta tag is too long';
+                    }
                 }
             }
         }
