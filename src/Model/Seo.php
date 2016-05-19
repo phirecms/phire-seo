@@ -132,7 +132,7 @@ class Seo extends AbstractModel
             $analysis['tracking'] = true;
         }
 
-        $sitemap = \Phire\Table\Modules::findBy(['folder' => 'phire-sitemap']);
+        $sitemap = \Phire\Table\Modules::findBy(['name' => 'phire-sitemap']);
         if (file_exists($_SERVER['DOCUMENT_ROOT'] . BASE_PATH . '/sitemap.xml') ||
             (isset($sitemap->id) && ($sitemap->active))) {
             $analysis['sitemap'] = true;
@@ -151,7 +151,7 @@ class Seo extends AbstractModel
             $cacheDetect = true;
         }
 
-        $cache = \Phire\Table\Modules::findBy(['folder' => 'phire-cache']);
+        $cache = \Phire\Table\Modules::findBy(['name' => 'phire-cache']);
         if (($cacheDetect) || (isset($cache->id) && ($cache->active))) {
             $analysis['caching'] = true;
         }
