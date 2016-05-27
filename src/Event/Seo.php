@@ -1,11 +1,32 @@
 <?php
+/**
+ * Phire SEO Module
+ *
+ * @link       https://github.com/phirecms/phire-seo
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.phirecms.org/license     New BSD License
+ */
 
+/**
+ * @namespace
+ */
 namespace Phire\Seo\Event;
 
 use Phire\Seo\Model;
 use Phire\Controller\AbstractController;
 use Pop\Application;
 
+/**
+ * SEO Event class
+ *
+ * @category   Phire\Seo
+ * @package    Phire\Seo
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.phirecms.org/license     New BSD License
+ * @version    1.0.0
+ */
 class Seo
 {
 

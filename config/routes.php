@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * phire-seo routes
+ */
 return [
     '/robots.txt' => [
         'controller' => 'Phire\Seo\Controller\IndexController',
