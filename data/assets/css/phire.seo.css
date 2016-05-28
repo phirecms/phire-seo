@@ -24,9 +24,23 @@ input[type=text].meta-content-field {
     width: calc(100% - 225px);
 }
 
+.seo-header {
+    margin: 10px 0 10px 0;
+    padding: 10px 0 10px 0;
+}
+
+.seo-header:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f201";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
+}
+
 .good-seo {
     margin: 15px auto 25px auto;
-    padding: 12px 20px 12px 40px;
+    padding: 12px 20px 12px 10px;
     width: calc(95% - 60px);
     display: block;
     font-weight: normal;
@@ -35,14 +49,21 @@ input[type=text].meta-content-field {
     background-color: #dbf2bf;
     border-radius: 4px;
     box-shadow: 0 0 5px 2px #b8c9a1;
-    background-image: url(../img/check.png);
-    background-position: 10px center;
-    background-repeat: no-repeat;
+}
+
+.good-seo:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f00c";
+    margin: 0;
+    padding: 0 5px 0 0;
+    color: #315900;
+    font-size: 1.1em;
 }
 
 .bad-seo {
     margin: 15px auto 25px auto;
-    padding: 12px 20px 12px 40px;
+    padding: 12px 20px 12px 10px;
     width: calc(95% - 60px);
     display: block;
     font-weight: normal;
@@ -51,9 +72,16 @@ input[type=text].meta-content-field {
     background-color: #e8d0d0;
     border-radius: 4px;
     box-shadow: 0 0 5px 2px #bfa4a4;
-    background-image: url(../img/x-red.png);
-    background-position: 10px center;
-    background-repeat: no-repeat;
+}
+
+.bad-seo:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f00d";
+    margin: 0;
+    padding: 0 5px 0 0;
+    color: #8e0202;
+    font-size: 1.1em;
 }
 
 .seo-issues {
