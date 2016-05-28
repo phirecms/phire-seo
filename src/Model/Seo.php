@@ -188,9 +188,11 @@ class Seo extends AbstractModel
         }
 
         $googleMetaDetect = false;
-        foreach ($cfg['meta'] as $meta) {
-            if ($meta['name'] == 'google-site-verification') {
-                $googleMetaDetect = true;
+        if (isset($cfg['meta'])) {
+            foreach ($cfg['meta'] as $meta) {
+                if ($meta['name'] == 'google-site-verification') {
+                    $googleMetaDetect = true;
+                }
             }
         }
 
